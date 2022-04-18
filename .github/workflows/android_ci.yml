@@ -57,9 +57,7 @@ jobs:
     needs: [avd-test]
     runs-on: ubuntu-latest
     steps:
-      - name : Checkout
       - uses: actions/checkout@v3
-
       - name: SetUp JDK
         uses: actions/setup-java@v3
         with:
@@ -69,6 +67,5 @@ jobs:
 
       - name: Grant Permission Gradlew
         run: chmod +x gradlew
-
       - name: Build Gradle
         run: ./gradlew build
