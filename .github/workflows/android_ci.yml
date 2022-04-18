@@ -1,0 +1,31 @@
+name: Lawtalk Continuos Integration
+
+on:
+  #Master Branch를 제외한 모든 Branch에서 동작
+  #Push / Pull Request
+  push:
+    branchs:
+      - '*'
+      - '!master'
+  pull_request:
+    branchs:
+      - '*'
+      - '!master'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    step:
+      # Checkout the Code
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Run Lint
+        run: ./gradlew lintDebug
+
+      - name: Upload html test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: index.html
+          path: app/build/reports/lint-results-debug.html
+
