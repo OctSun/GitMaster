@@ -15,7 +15,7 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    step:
+    steps:
       # Checkout the Code
       - name: Checkout
         uses: actions/checkout@v3
