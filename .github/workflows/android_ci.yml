@@ -26,10 +26,27 @@ jobs:
         with:
           name: index.html
           path: app/build/reports/lint-results-debug.html
+  # Build
+  build:
+    needs: [lint-check]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: SetUp JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Grant Permission Gradlew
+        run: chmod +x gradlew
+      - name: Build Gradle
+        run: ./gradlew build --no-daemon
 
   #  AVD 테스트
   avd-test:
-    needs: [lint-check]
+    needs: [build]
     runs-on: macos-latest
     strategy:
       matrix:
@@ -52,20 +69,3 @@ jobs:
           profile: Galaxy Nexus
           script: ./gradlew connectedCheck
 
-  # Build
-  build:
-    needs: [avd-test]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: SetUp JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: gradle
-
-      - name: Grant Permission Gradlew
-        run: chmod +x gradlew
-      - name: Build Gradle
-        run: ./gradlew build
