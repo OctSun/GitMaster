@@ -52,6 +52,10 @@ jobs:
       matrix:
         api-level: [29, 28, 27]
         target: [default, google_apis]
+        arch: [x86]
+        exclude:
+          - target: google_apis
+            api-level: 29
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -61,8 +65,8 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
-          arch: x86_64
-          profile: Nexus 6
+          arch: ${{ matrix.arch }}
+          profile: Galaxy Nexus
           script: ./gradlew connectedCheck
 
       - name: Upload test report
