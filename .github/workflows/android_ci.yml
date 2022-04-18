@@ -51,7 +51,7 @@ jobs:
     strategy:
       matrix:
         api-level: [29, 28, 27]
-        target: [defalut, google_apis]
+        target: [default, google_apis]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
