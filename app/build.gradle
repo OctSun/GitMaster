@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "kr.co.khs.gitmaster"
-        minSdkVersion 14
+        minSdkVersion 17
         targetSdkVersion 31
         versionCode 1
         versionName "1.0"
@@ -18,6 +18,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android {
+        compileOptions {
+            sourceCompatibility 1.8
+            targetCompatibility 1.8
         }
     }
 }
