@@ -1,8 +1,6 @@
 name: Lawtalk Continuos Integration
 
 on:
-  #Master Branch를 제외한 모든 Branch에서 동작
-  #Push / Pull Request
   push:
     branchs:
       - '*'
@@ -13,40 +11,25 @@ on:
       - '!master'
 
 jobs:
-  lint:
+  #  Lint 검사
+  lint-check:
     runs-on: ubuntu-latest
     steps:
-      # Checkout the Code
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Run Lint
         run: ./gradlew lintDebug
 
-      - name: Upload html test report
+      - name: Upload Report
         uses: actions/upload-artifact@v2
         with:
           name: index.html
           path: app/build/reports/lint-results-debug.html
 
-  unit-test:
-    needs: [lint]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Run tests
-        run: ./gradlew test
-
-      - name: Upload test report
-        uses: actions/upload-artifact@v2
-        with:
-          name: unit_test_report
-          path: app/build/reports/tests/testDebugUnitTest/
-
-  instrumentation-test:
-    needs: [unit-test]
+  #  AVD 테스트
+  avd-test:
+    needs: [lint-check]
     runs-on: macos-latest
     strategy:
       matrix:
@@ -69,8 +52,23 @@ jobs:
           profile: Galaxy Nexus
           script: ./gradlew connectedCheck
 
-      - name: Upload test report
-        uses: actions/upload-artifact@v2
+  # Build
+  build:
+    needs: [avd-test]
+    runs-on: ubuntu-latest
+    steps:
+      - name : Checkout
+      - uses: actions/checkout@v3
+
+      - name: SetUp JDK
+        uses: actions/setup-java@v3
         with:
-          name: instrumentation_test_report
-          path: app/build/reports/androidTests/connected/
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant Permission Gradlew
+        run: chmod +x gradlew
+
+      - name: Build Gradle
+        run: ./gradlew build
