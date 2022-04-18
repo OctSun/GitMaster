@@ -52,10 +52,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Run Espresso
+      - name: Run Android 11 Test
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          script: ./gradlew connectedCheck
+
+      - name: Run Android 10 Test
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
+          script: ./gradlew connectedCheck
+
+      - name: Run Android 9 Test
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 28
           script: ./gradlew connectedCheck
 
       - name: Upload test report
