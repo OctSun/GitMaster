@@ -58,7 +58,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        api-level: [30, 29, 17]
+        api-level: [30, 21, 17]
         target: [google_apis]
         arch: [x86]
         exclude:
