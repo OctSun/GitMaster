@@ -59,7 +59,7 @@ jobs:
     strategy:
       matrix:
         api-level: [30, 29, 17]
-        target: [default]
+        target: [google_apis]
         arch: [x86]
         exclude:
           - target: google_apis
