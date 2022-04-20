@@ -67,7 +67,6 @@ jobs:
 
       - name: UnitTest
         run: ./gradlew test
-#        run: ./gradlew androidTest
       - name: Upload UnitTest Report
       - use: action/upload-artiface@v2
         with:
