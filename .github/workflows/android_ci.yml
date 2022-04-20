@@ -68,11 +68,11 @@ jobs:
       - name: UnitTest
         run: ./gradlew test
 
-      - name: Upload UnitTest Report
-      - uses: action/upload-artiface@v2
-        with:
-          name: unitTestReport.html
-          path: app/build/reports/tests/testDebugUnitTest/index.html
+#      - name: Upload UnitTest Report
+#      - uses: action/upload-artiface@v2
+#        with:
+#          name: unitTestReport.html
+#          path: app/build/reports/tests/testDebugUnitTest/index.html
 
       - name: Run Android AVD Test
         uses: reactivecircus/android-emulator-runner@v2
