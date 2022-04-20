@@ -65,8 +65,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: UnitTest
-        run: ./gradlew test
+#      - name: UnitTest
+#        run: ./gradlew test
 
 #      - name: Upload UnitTest Report
 #      - uses: action/upload-artiface@v2
@@ -81,4 +81,4 @@ jobs:
           target: ${{ matrix.target }}
           arch: ${{ matrix.arch }}
           profile: Galaxy Nexus
-          script: ./gradlew connectedCheck
+          script: ./gradlew test
