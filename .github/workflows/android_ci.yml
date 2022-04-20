@@ -67,8 +67,9 @@ jobs:
 
       - name: UnitTest
         run: ./gradlew test
+
       - name: Upload UnitTest Report
-      - use: action/upload-artiface@v2
+      - uses: action/upload-artiface@v2
         with:
           name: unitTestReport.html
           path: app/build/reports/tests/testDebugUnitTest/index.html
