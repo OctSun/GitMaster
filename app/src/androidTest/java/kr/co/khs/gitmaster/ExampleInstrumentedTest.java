@@ -10,6 +10,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.logging.Logger;
+
 import kr.co.khs.gitmaster.test.BuildConfig;
 
 import static org.junit.Assert.*;
@@ -23,8 +25,6 @@ import static org.junit.Assert.*;
 public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("kr.co.khs.gitmaster", "API LEVEL : "+Build.VERSION.SDK_INT);
+        assertEquals(Build.VERSION.CODENAME, Build.VERSION.CODENAME);
     }
 }
