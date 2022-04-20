@@ -69,6 +69,12 @@ jobs:
         run: ./gradlew test
 #        run: ./gradlew androidTest
 
+      - name: Upload UnitTest Report
+      - use: action/upload-artiface@v2
+        with:
+          name: unitTestReport.html
+          path: app/build/reports/tests/testDebugUnitTest/index.html
+
       - name: Run Android AVD Test
         uses: reactivecircus/android-emulator-runner@v2
         with:
