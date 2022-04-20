@@ -65,15 +65,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-#      - name: UnitTest
-#        run: ./gradlew test
-
-#      - name: Upload UnitTest Report
-#      - uses: action/upload-artiface@v2
-#        with:
-#          name: unitTestReport.html
-#          path: app/build/reports/tests/testDebugUnitTest/index.html
-
       - name: Run Android AVD Test
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -82,3 +73,9 @@ jobs:
           arch: ${{ matrix.arch }}
           profile: Galaxy Nexus
           script: ./gradlew connectedAndroidTest
+
+      - name: Upload AVD TEST Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: index.html
+          path: app/build/test-results/testDebugUnitTest/
