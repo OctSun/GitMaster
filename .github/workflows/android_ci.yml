@@ -81,4 +81,4 @@ jobs:
           target: ${{ matrix.target }}
           arch: ${{ matrix.arch }}
           profile: Galaxy Nexus
-          script: ./gradlew test
+          script: ./gradlew androidTest
