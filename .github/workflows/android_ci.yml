@@ -65,12 +65,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: UnitTest
-        with:
-          scrpit: ./gradlew test
+#      - name: UnitTest
+#        run: ./gradlew androidTest
 
       - name: Run Android AVD Test
         uses: reactivecircus/android-emulator-runner@v2
+        run: ./gradlew androidTest
         with:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
