@@ -12,29 +12,29 @@ on:
 
 jobs:
   #  Lint 검사
-  lint-check:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
-
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Run Lint
-        run: ./gradlew lintDebug
-
-      - name: Upload Report
-        uses: actions/upload-artifact@v2
-        with:
-          name: index.html
-          path: app/build/reports/lint-results-debug.html
+#  lint-check:
+#    runs-on: ubuntu-latest
+#    timeout-minutes: 15
+#    steps:
+#      - name: Cancel Previous Runs
+#        uses: styfle/cancel-workflow-action@0.9.1
+#        with:
+#          access_token: ${{ github.token }}
+#
+#      - name: Checkout
+#        uses: actions/checkout@v3
+#
+#      - name: Run Lint
+#        run: ./gradlew lintDebug
+#
+#      - name: Upload Report
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: index.html
+#          path: app/build/reports/lint-results-debug.html
   # Build
   build:
-    needs: [lint-check]
+#    needs: [lint-check]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
