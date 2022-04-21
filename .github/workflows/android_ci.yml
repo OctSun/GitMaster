@@ -54,7 +54,7 @@ jobs:
   #  AVD 테스트
   avd-test:
     needs: [build]
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       matrix:
