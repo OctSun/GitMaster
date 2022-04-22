@@ -42,7 +42,7 @@ jobs:
 
       - name: alias check
         run: echo '${{ secrets.ALIAS }}'
-        -
+
       - name: base64 check
         run: echo '${{ secrets.SIGNING_KEY }}'
       # Sign AAB
