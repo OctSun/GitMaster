@@ -22,8 +22,13 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: 'gradle'
+
       - name: Build Gradle
         run: ./gradlew build --no-daemon
+
+      - name: Build Gradle
+        run: ./gradlew build --no-daemon
+
       - name: Build Release AAB
         id: buildRelease
         run: ./gradlew bundleRelease
