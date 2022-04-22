@@ -27,8 +27,8 @@ jobs:
           cache: 'gradle'
 
       # Grant Permission + Build
-      - name: Grant Permission Gradlew
-        run: chmod +x gradlew
+#      - name: Grant Permission Gradlew
+#        run: chmod +x gradlew
       - name: Build Gradle
         run: ./gradlew build --no-daemon
 
