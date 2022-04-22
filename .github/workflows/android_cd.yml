@@ -39,6 +39,10 @@ jobs:
         #        AAB 생성 위치
         #        path: app/build/outputs/bundle/release/app-release.aab
 
+
+      - name: alias check
+        run: echo '${{ secrets.ALIAS }}'
+        -
       - name: base64 check
         run: echo '${{ secrets.SIGNING_KEY }}'
       # Sign AAB
