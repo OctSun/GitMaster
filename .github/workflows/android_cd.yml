@@ -2,52 +2,96 @@ name: Lawtalk Continuos Delivery
 
 on:
   push:
+    branchs:
+      - '*'
+      - '!master'
   pull_request:
-    branches-ignore:
-      - 'master'
-      - 'main'
+    branchs:
+      - '*'
+      - '!master'
+
 jobs:
+
+
+  # Checkout -> JDK Setup -> Grant Permisstion -> Build AAB -> Sign AAB ->
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
+      - name: Create service_account.json
+        id: createServiceAccount
+        run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
+      # Checkout + JDK Setup
+#      - uses: actions/checkout@v3
+#      - name: SetUp JDK
+#        uses: actions/setup-java@v3
+#        with:
+#          java-version: '11'
+#          distribution: 'temurin'
+#          cache: 'gradle'
+#
+#      # Grant Permission + Build
+#      #      - name: Grant Permission Gradlew
+#      #        run: chmod +x gradlew
+#      - name: Build Gradle
+#        run: ./gradlew build --no-daemon
+#
+#      # Build AAB
+#      - name: Build Release AAB
+#        id: buildRelease
+#        run: ./gradlew bundleRelease
+#        #        AAB 생성 위치
+#        #        path: app/build/outputs/bundle/release/app-release.aab
+#
+#      #
+#      #      - name: alias check
+#      #        run: echo '${{ secrets.ALIAS }}'
+#      #
+#      #      - name: base64 check
+#      #        run: echo '${{ secrets.SIGNING_KEY }}'
+#      #
+#      #
+#      #      - name: Generate Keystore file from Github Secrets
+#      #        run: |
+#      #          echo "$KEYSTORE" > ./keystore/keystore.b64
+#      #          base64 -d -i ./keystore/keystore.b64 > ./keystore/GitMaster.jks
+#      #        env:
+#      #          KEYSTORE: ${{ secrets.SIGNING_KEY }}
+#
+#
+#
+#      # Sign AAB
+#      - name: Sign AAB
+#        id: sign
+#        uses: r0adkll/sign-android-release@v1
+#        with:
+#          #          releaseDirectory: app/build/outputs/bundle/release
+#          #          signingKeyBase64: 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
+#          #          alias: key0
+#          #          keyStorePassword: 123456
+#          #          keyPassword: 123456
+#          releaseDirectory: app/build/outputs/bundle/release
+#          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+#          alias: ${{ secrets.ALIAS }}
+#          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+#          keyPassword: ${{ secrets.KEY_PASSWORD }}
+#
+#      - name: Upload AAB
+#        id: uploadArtifact
+#        uses: actions/upload-artifact@v2.2.4
+#        with:
+#          name: app
+#          path: app/build/outputs/bundle/release/app-release.aab
+#        env:
+#          BUILD_TOOLS_VERSION: 30.0.2
 
-      - uses: actions/checkout@v3
-      - name: SetUp JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: 'gradle'
-
-      - name: Grant Permission Gradlew
-        run: chmod +x gradlew
-
-      - name: Build Gradle
-        run: ./gradlew build --no-daemon
-
-  sign-aab:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build Release AAB
-        id: buildRelease
-        run: ./gradlew bundleRelease
-
-      - name: Sign App AAB
-        uses: r0adkll/sign-android-release@v1
-        with:
-          releaseDirectory: app/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-
-      - name: Upload AAB
-        uses: actions/upload-artifact@v2.2.4
-        with:
-          name: app
-          path: app/build/outputs/bundle/release/app-release.aab
+#      - name: Upload AAB
+#        uses: r0adkll/upload-google-play@v1
+#        with:
+#          serviceAccountJson: ${{ SERVICE_ACCOUNT_JSON }}
+#          packageName: ${{ PACKAGE_NAME }}
+#          releaseFile: ${{ SIGNED_RELEASE_FILE }}
+#          track: internal
+#          inAppUpdatePriority: 2
+#          userFraction: 0.33
+#          whatsNewDirectory: distribution/whatsnew
+#          mappingFile: app/build/outputs/mapping/release/mapping.txt
