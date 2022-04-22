@@ -3,11 +3,11 @@ name: Lawtalk Continuos Integration
 on:
   push:
     branchs:
-      - '*'
+      - '!*'
       - '!master'
   pull_request:
     branchs:
-      - '*'
+      - '!*'
       - '!master'
 
 jobs:
@@ -54,7 +54,7 @@ jobs:
   #  AVD 테스트
   avd-test:
     needs: [build]
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     timeout-minutes: 30
     strategy:
       matrix:
