@@ -29,14 +29,14 @@ jobs:
       - name: Build Gradle
         run: ./gradlew build --no-daemon
 
-      - name: Build Release AAB
-        id: buildRelease
-        run: ./gradlew bundleRelease
-
   sign-aab:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
+      - name: Build Release AAB
+        id: buildRelease
+        run: ./gradlew bundleRelease
+
       - name: Sign App AAB
         uses: r0adkll/sign-android-release@v1
         with:
